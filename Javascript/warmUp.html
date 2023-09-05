@@ -7,7 +7,8 @@
   </head>
   <body>
     <h1>Hi</h1>
-    <button>Toggle</button>
+    <button>Toggle</button> <br />
+    <img src="1.jpg" alt="body image" style="height: 500px; width: 500px" />
   </body>
   <script>
     var h1Tag = document.querySelector("h1");
@@ -18,6 +19,17 @@
         h1Tag.textContent = "Hello";
       } else {
         h1Tag.textContent = "Hi";
+      }
+    };
+
+    var selectImage = document.querySelector("img");
+    let imgSrc = selectImage.getAttribute("src");
+    console.log(imgSrc);
+    selectImage.onclick = function () {
+      if (imgSrc == "1.jpg") {
+        selectImage.setAttribute("src", "2.jpg");
+      } else {
+        selectImage.setAttribute("src", "1.jpg");
       }
     };
   </script>
