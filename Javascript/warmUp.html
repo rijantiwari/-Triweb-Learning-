@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Hi</h1>
+    <button>Toggle</button>
+  </body>
+  <script>
+    var h1Tag = document.querySelector("h1");
+
+    var btnTag = document.querySelector("button");
+    btnTag.onclick = function () {
+      if (h1Tag.textContent == "Hi") {
+      } else {
+        h1Tag.textContent = "Hi";
+      }
+    };
+  </script>
+</html>
