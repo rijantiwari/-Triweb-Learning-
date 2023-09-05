@@ -23,9 +23,8 @@
     };
 
     var selectImage = document.querySelector("img");
-    let imgSrc = selectImage.getAttribute("src");
-    console.log(imgSrc);
     selectImage.onclick = function () {
+      let imgSrc = selectImage.getAttribute("src");
       if (imgSrc == "1.jpg") {
         selectImage.setAttribute("src", "2.jpg");
       } else {
