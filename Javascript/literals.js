@@ -9,3 +9,8 @@ let obj = { " ": "rijan", "!": 955155 };
 console.log(obj[" "], obj["!"]);
 let obj1 = { name: "rijan", phone: 955155 };
 console.log(obj1.name, obj1.phone);
+
+let name1 = " rijan ";
+let name2 = ` Hi${name1}`;
+
+console.log(name2);
