@@ -7,34 +7,66 @@
     <link rel="stylesheet" type="text/css" href="form.css" />
   </head>
   <body>
-    <h3>User Registration Form</h3>
-    <form>
-      <label for="fname">First Name:</label><br />
-      <input type="text" id="fname" name="fname" /><br />
-      <label for="lname">Last Name:</label><br />
-      <input type="text" id="lname" name="lname" /><br />
-      <label for="email">Email:</label><br />
-      <input type="email" id="email" name="email" /><br />
-      <label for="contact">Contact:</label><br />
-      <input type="tel" id="contact" name="contact" /><br />
-      <label for="dob">Date of Birth:</label><br />
-      <input type="date" id="date" name="date" /><br />
-      <label for="age">Age:</label><br />
-      <input type="number" id="age" name="age" /><br />
+    <div class="container">
+      <h1>User Registration Form</h1>
+      <form id="registration-form">
+        <div class="input-group">
+          <label for="fname">First Name:</label>
+          <input type="text" id="fname" name="fname" required />
+        </div>
+        <div class="input-group">
+          <label for="lname">Last Name:</label>
+          <input type="text" id="lname" name="lname" required />
+        </div>
+        <div class="input-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="input-group">
+          <label for="contact">Contact:</label>
+          <input
+            type="tel"
+            id="contact"
+            name="contact"
+            pattern="[0-9]{10}"
+            required
+          />
+        </div>
 
-      <label for="Gender">Gender</label><br />
-      <input type="radio" id="male" name="gender" />
-      <label for="male">Male</label>
-      <input type="radio" id="female" name="gender" />
-      <label for="female">Female</label>
-      <input type="radio" id="other" name="gender" />
-      <label for="other">Other</label><br />
-
-      <label for="resume">Resume:</label>
-      <input type="file" id="resume" name="resume" accept=".pdf" /><br />
-
-      <button type="submit" id="butn" class="btn">Submit</button>
-    </form>
+        <div class="input-group">
+          <label for="dob">Date of Birth:</label>
+          <input type="date" id="dob" name="dob" required />
+        </div>
+        <div class="input-group">
+          <label for="age">Age:</label>
+          <input type="text" id="age" name="age" readonly />
+        </div>
+        <div class="input-group">
+          <label for="gender">Gender:</label>
+          <input type="radio" id="male" name="gender" value="Male" required />
+          <label for="male">Male</label>
+          <input
+            type="radio"
+            id="female"
+            name="gender"
+            value="Female"
+            required
+          />
+          <label for="female">Female</label>
+          <input type="radio" id="other" name="gender" value="Other" required />
+          <label for="other">Other</label>
+        </div>
+        <div class="input-group">
+          <label for="resume">Resume:</label>
+          <input type="file" id="resume" name="resume" accept=".pdf" required />
+        </div>
+        <div class="input-group">
+          <button type="submit" id="submit-btn" class="btn">Submit</button>
+        </div>
+      </form>
+      <div id="email-error" class="error-message"></div>
+      <div id="contact-error" class="error-message"></div>
+    </div>
     <script src="form.js"></script>
   </body>
 </html>
