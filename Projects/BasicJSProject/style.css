@@ -1,0 +1,104 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: rgb(44, 40, 40);
+}
+
+.main_div {
+  background-color: black;
+  width: 400px;
+  margin-top: 160px;
+  margin-left: 700px;
+
+  border: 6px solid rgb(129, 5, 125);
+  box-shadow: 7px 7px 3px rgb(201, 133, 183);
+}
+
+.user_div {
+  width: 50%;
+  height: 150px;
+}
+
+.red_div {
+  background-color: red;
+  float: left;
+}
+.green_div {
+  background-color: green;
+  display: inline-block;
+}
+.blue_div {
+  background-color: blue;
+  float: left;
+}
+.yellow_div {
+  background-color: yellow;
+  display: inline-block;
+}
+
+.user_block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.btn_pro {
+  background-color: chocolate;
+  color: white;
+  border: 2px solid green;
+  height: 30px;
+  width: 150px;
+  margin: 10px 20px;
+  cursor: pointer;
+  box-shadow: 3px 3px 6px red;
+}
+
+.input_pro {
+  background-color: rgb(212, 195, 182);
+  color: rgb(85, 3, 3);
+  border: 2px solid green;
+  height: 30px;
+  width: 150px;
+  margin-left: 30%;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.my_user {
+  color: antiquewhite;
+  width: 100px;
+  height: 40px;
+  text-align: center;
+  font-size: larger;
+  font-weight: bold;
+  border: 3px dotted rgb(121, 77, 77);
+}
+
+#btn_add_user:hover {
+  background-color: red;
+  transition: 0.4s;
+}
+
+#btn_delete_user:hover {
+  background-color: blueviolet;
+  transition: 0.4s;
+}
+
+#btn_move_to_red:hover {
+  background-color: red;
+  transition: 0.4s;
+}
+#btn_move_to_green:hover {
+  background-color: green;
+  transition: 0.4s;
+}
+#btn_move_to_blue:hover {
+  background-color: blue;
+  transition: 0.4s;
+}
+#btn_move_to_yellow:hover {
+  background-color: yellow;
+  transition: 0.4s;
+}
