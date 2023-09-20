@@ -44,3 +44,27 @@ FOREIGN KEY (class_id) REFERENCES classes(id)
 select * from students where class_id <> 6 
 
 select * from students where class_id <> 6 order by class_id desc
+
+select * from students where class_id = 5 limit 2 
+select  min(salary) from teachers
+
+select  sum(salary)  as totalSalary from teachers
+
+select  * from students where student_name like'R%n' 
+
+select max(salary) from teachers where salary not in (select max(salary) from teachers) 
+
+select * from teachers where salary between 5000 and 11000 \
+
+ select cl.class_name, tr.teacher_name as class_teacher
+ from classes cl
+ left join teachers tr on cl.teacher_id = tr.id 
+
+
+ select class_id, count(*) as number_od_students from students
+group by class_id
+order by number_od_students desc
+
+select class_id, count(*) as number_od_students from students
+group by class_id
+having number_od_students > 2
