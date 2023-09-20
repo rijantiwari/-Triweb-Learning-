@@ -1,0 +1,14 @@
+CREATE DATABASE mysql_workshop_2023; 
+use mysql_workshop_2023;
+CREATE TABLE students(
+id int(11)  NOT null PRIMARY KEY,
+student_name varchar(255) NOT null,
+class int(11) DEFAULT 6, 
+mobile varchar(100)
+);
+CREATE TABLE teacher(
+id int(11) not null PRIMARY KEY AUTO_INCREMENT,
+    teacher_name varchar(255) NOT null,
+    mobile_number varchar(100) not null
+    
+);
