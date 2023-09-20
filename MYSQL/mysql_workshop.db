@@ -12,3 +12,17 @@ id int(11) not null PRIMARY KEY AUTO_INCREMENT,
     mobile_number varchar(100) not null
     
 );
+CREATE TABLE classes(
+id int(11) not null AUTO_INCREMENT,
+    class_name varchar(100) not null, 
+    class_teacher int(11) not null, 
+    PRIMARY KEY(id), 
+    FOREIGN KEY (class_teacher) REFERENCES teacher(id)
+)
+
+
+ALTER TABLE students
+CHANGE class class_id int(11) Not null 
+
+ALTER TABLE students
+ADD FOREIGN KEY(class_id) REFERENCES classes(id);
