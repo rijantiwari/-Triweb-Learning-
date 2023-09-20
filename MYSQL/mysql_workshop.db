@@ -26,3 +26,6 @@ CHANGE class class_id int(11) Not null
 
 ALTER TABLE students
 ADD FOREIGN KEY(class_id) REFERENCES classes(id);
+
+ALTER table students
+ADD created_on timestamp DEFAULT CURRENT_TIMESTAMP;
