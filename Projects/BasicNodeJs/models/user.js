@@ -21,3 +21,15 @@ module.exports.insertUser = async (userData) => {
   // result return
   return id;
 };
+
+module.exports.get = async (userData) => {
+  let retData = "";
+  try {
+    let query = "Select * from users WHERE id = ?";
+    let result = await db.execute(query, [userData.id]);
+    console.log(result);
+  } catch (error) {
+    console.log(error);
+  }
+  return retData;
+};
