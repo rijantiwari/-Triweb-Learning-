@@ -1,7 +1,8 @@
 const usermModel = require("../models/user");
 
-module.exports.registration = (req, res) => {
-  usermModel.insertUser(req.body);
+module.exports.registration = async (req, res) => {
+  let insertId = await usermModel.insertUser(req.body);
+  console.log("id", insertId);
   res.send(req.body);
 };
 
