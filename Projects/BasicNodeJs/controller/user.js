@@ -22,11 +22,21 @@ module.exports.get = async (req, res) => {
 };
 
 // update
-module.exports.update = (req, res) => {
-  res.send(req.body);
+module.exports.update = async (req, res) => {
+  let status = await usermModel.update(req.body);
+  if (status) {
+    res.send({ status: "success", message: "User data Updated Successfully " });
+  } else {
+    res.send({ status: "Error", message: "User Not updated" });
+  }
 };
 
 // delete
-module.exports.delete = (req, res) => {
-  res.send(req.body);
+module.exports.delete = async (req, res) => {
+  let status = await usermModel.delete(req.body);
+  if (status) {
+    res.send({ status: "success", message: "User deleted Successfully " });
+  } else {
+    res.send({ status: "Error", message: "User Not deleted" });
+  }
 };
