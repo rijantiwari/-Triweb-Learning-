@@ -14,6 +14,7 @@ const registerUser = (req, res) => {
 };
 exports.registerUser = registerUser;
 const updateUser = (req, res) => {
+    let xState = "locked";
     const myUser = {
         id: 1,
         uname: "Jivan",
