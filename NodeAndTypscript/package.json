@@ -1,0 +1,11 @@
+{
+  "name": "NodeBasicProject",
+  "version": "1.0.0",
+  "description": "This project contains NOdeJS REst ApIS",
+  "main": "app.js",
+  "author": "Rijan Tiwari",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
