@@ -1,10 +1,35 @@
 import { Request, Response, NextFunction } from "express";
+import User from "../models/user";
+let resp: ReturnResponse;
+interface ReturnResponse {
+  status: "success" | "error";
+  message: string;
+  data: {};
+}
+const registerUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const user = new User(req.body);
+    const result = await user.save();
+    if (!result) {
+      resp = { status: "error", message: "No result Found", data: {} };
+      res.send(resp);
+    } else {
+      resp = {
+        status: "success",
+        message: "Registration done",
+        data: { userId: result.id },
+      };
 
-const registerUser = (req: Request, res: Response, next: NextFunction) => {
-  console.log("here");
-  console.log(req.body);
-
-  res.send("Registration done");
+      res.send(resp);
+    }
+  } catch (error) {
+    resp = { status: "error", message: "Something went wrong", data: {} };
+    res.status(500).send(resp);
+  }
 };
 
 export { registerUser };
