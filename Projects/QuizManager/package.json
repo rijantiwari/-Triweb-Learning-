@@ -11,5 +11,9 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.18"
+  },
+  "scripts": {
+    "build": "tsc --noEmitOnError",
+    "start": "node ./dist/app.js"
   }
 }
