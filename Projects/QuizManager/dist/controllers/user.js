@@ -12,10 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registerUser = void 0;
+exports.getUser = exports.registerUser = void 0;
 const user_1 = __importDefault(require("../models/user"));
 let resp;
-const registerUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = new user_1.default(req.body);
         const result = yield user.save();
@@ -38,3 +38,22 @@ const registerUser = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.registerUser = registerUser;
+const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = req.params.userId;
+        const user = yield user_1.default.findById(userId, { name: 1, email: 1 });
+        if (!user) {
+            resp = { status: "error", message: "No user Found", data: {} };
+            res.send(resp);
+        }
+        else {
+            resp = { status: "success", message: "User Found", data: { user: user } };
+            res.send(resp);
+        }
+    }
+    catch (error) {
+        resp = { status: "error", message: "Something went wrong", data: {} };
+        res.status(500).send(resp);
+    }
+});
+exports.getUser = getUser;

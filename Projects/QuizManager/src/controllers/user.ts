@@ -6,11 +6,7 @@ interface ReturnResponse {
   message: string;
   data: {};
 }
-const registerUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const registerUser = async (req: Request, res: Response) => {
   try {
     const user = new User(req.body);
     const result = await user.save();
@@ -32,4 +28,34 @@ const registerUser = async (
   }
 };
 
-export { registerUser };
+const getUser = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId, { name: 1, email: 1 });
+    if (!user) {
+      resp = { status: "error", message: "No user Found", data: {} };
+      res.send(resp);
+    } else {
+      resp = { status: "success", message: "User Found", data: { user: user } };
+      res.send(resp);
+    }
+  } catch (error) {
+    resp = { status: "error", message: "Something went wrong", data: {} };
+    res.status(500).send(resp);
+  }
+};
+const updateUser = async (res: Response, req: Request) => {
+  try {
+    const userId = req.body._id;
+    const user = await User.findById(userId);
+    user.name = req.body.name;
+    await user.save();
+    resp = { status: "success", message: "User updated", data: { user: user } };
+    res.send(resp);
+  } catch (error) {
+    resp = { status: "error", message: "Something went wrong", data: {} };
+    res.status(500).send(resp);
+  }
+};
+
+export { registerUser, getUser, updateUser };
