@@ -29,6 +29,7 @@ const registerUser = async (req: Request, res: Response) => {
 };
 
 const getUser = async (req: Request, res: Response) => {
+  console.log("Change");
   try {
     const userId = req.params.userId;
     const user = await User.findById(userId, { name: 1, email: 1 });
@@ -44,13 +45,20 @@ const getUser = async (req: Request, res: Response) => {
     res.status(500).send(resp);
   }
 };
-const updateUser = async (res: Response, req: Request) => {
+const updateUser = async (req: Request, res: Response) => {
   try {
     const userId = req.body._id;
     const user = await User.findById(userId);
+
+    if (!user) {
+      resp = { status: "error", message: "User not found", data: {} };
+      return res.send(resp);
+    }
+
     user.name = req.body.name;
     await user.save();
-    resp = { status: "success", message: "User updated", data: { user: user } };
+
+    resp = { status: "success", message: "User updated", data: { user } };
     res.send(resp);
   } catch (error) {
     resp = { status: "error", message: "Something went wrong", data: {} };
