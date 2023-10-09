@@ -29,7 +29,7 @@ const registerUser = async (req: Request, res: Response) => {
 };
 
 const getUser = async (req: Request, res: Response) => {
-  console.log("Change");
+  console.log("Change3");
   try {
     const userId = req.params.userId;
     const user = await User.findById(userId, { name: 1, email: 1 });
