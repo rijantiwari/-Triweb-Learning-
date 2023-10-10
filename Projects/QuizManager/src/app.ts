@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 
 import userRoute from "./routes/user";
+import authRoute from "./routes/auth";
 
 const app = express();
 const connectionString = process.env.CONNECTION_STRING || "";
@@ -9,6 +10,8 @@ const connectionString = process.env.CONNECTION_STRING || "";
 app.use(express.json());
 
 app.use("/user", userRoute);
+
+app.use("/auth", authRoute);
 
 mongoose
   .connect(connectionString)
