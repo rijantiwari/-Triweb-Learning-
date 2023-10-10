@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import User from "../models/user";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 let resp: ReturnResponse;
 interface ReturnResponse {
   status: "success" | "error";
@@ -48,7 +49,8 @@ const loginUser = async (req: Request, res: Response) => {
     if (user && user.password) {
       const status = await bcrypt.compare(password, user.password);
       if (status) {
-        resp = { status: "success", message: "Logged In", data: {} };
+        const token = jwt.sign({ userId: user.id }, "secretmyverysecretkey");
+        resp = { status: "success", message: "Logged In", data: { token } };
         res.send(resp);
       } else {
         resp = { status: "error", message: "Credential Mismatched", data: {} };
