@@ -1,7 +1,6 @@
 import express from "express";
 import { registerUser, loginUser, isUserExist } from "../controllers/auth";
 import { body } from "express-validator";
-import ProjectError from "../helper/error";
 const router = express.Router();
 
 router.post(
@@ -16,9 +15,9 @@ router.post(
       .trim()
       .notEmpty()
       .isEmail()
-      .custom((emailId) => {
+      .custom((emailId: String) => {
         return isUserExist(emailId)
-          .then((status) => {
+          .then((status: Boolean) => {
             if (status) {
               return Promise.reject("User Already Exist");
             }
@@ -28,6 +27,18 @@ router.post(
           });
       })
       .normalizeEmail(),
+    body("password")
+      .trim()
+      .isLength({ min: 8 })
+      .withMessage("Enter at least 8 character long password"),
+    body("confirm_password")
+      .trim()
+      .custom((value: String, { req }) => {
+        if (value != req.body.password) {
+          return Promise.reject("Password mismatched.");
+        }
+        return true;
+      }),
   ],
   registerUser
 );
