@@ -16,17 +16,17 @@ const getUser = async (req: Request, res: Response, next: NextFunction) => {
     if (req.userId != req.params.userId) {
       const err = new ProjectError("You are not authorized");
       err.statusCode = 401;
-
       throw err;
     }
 
     const user = await User.findById(userId, { name: 1, email: 1 });
     if (!user) {
-      resp = { status: "error", message: "No user Found", data: {} };
-      res.send(resp);
+      const err = new ProjectError("No user Found");
+      err.statusCode = 401;
+      throw err;
     } else {
       resp = { status: "success", message: "User Found", data: { user: user } };
-      res.send(resp);
+      res.status(200).send(resp);
     }
   } catch (error) {
     next(error);
@@ -35,14 +35,17 @@ const getUser = async (req: Request, res: Response, next: NextFunction) => {
 const updateUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (req.userId != req.body._id) {
-      throw new Error("User not authorized");
+      const err = new ProjectError("You are not authorized");
+      err.statusCode = 401;
+      throw err;
     }
     const userId = req.body._id;
     const user = await User.findById(userId);
 
     if (!user) {
-      resp = { status: "error", message: "User not found", data: {} };
-      return res.send(resp);
+      const err = new ProjectError("No user Found");
+      err.statusCode = 401;
+      throw err;
     }
 
     user.name = req.body.name;
