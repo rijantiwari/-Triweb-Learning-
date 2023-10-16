@@ -9,7 +9,6 @@ interface ReturnResponse {
 }
 
 const getUser = async (req: Request, res: Response) => {
-  console.log("Change 124");
   try {
     const userId = req.params.userId;
     const user = await User.findById(userId, { name: 1, email: 1 });

@@ -9,6 +9,13 @@ const connectionString = process.env.CONNECTION_STRING || "";
 
 app.use(express.json());
 
+declare global {
+  namespace Express {
+    interface Request {
+      userId: String;
+    }
+  }
+}
 app.use("/user", userRoute);
 
 app.use("/auth", authRoute);
