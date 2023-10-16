@@ -11,11 +11,9 @@ const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
   }
   // jwt --> decode using sign
   const token = authHeader.split(" ")[1];
-  console.log(token);
   let decodedToken: { userId: String; iat: Number; exp: Number };
   try {
     decodedToken = <any>jwt.verify(token, "secretmyverysecretkey");
-    console.log(decodedToken);
   } catch (error) {
     const err = new Error("Not Authenticated");
     throw err;
@@ -28,8 +26,7 @@ const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
   }
   // userid
   req.userId = decodedToken.userId;
-  console.log(decodedToken);
-
+  // if in next code you needed user then here, fetch the suer model via user controller.
   next();
 };
 

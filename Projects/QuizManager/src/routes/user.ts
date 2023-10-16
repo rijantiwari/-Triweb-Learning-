@@ -6,5 +6,5 @@ const router = express.Router();
 
 // user should be authenticate and authorized
 router.get("/:userId", isAuthenticated, getUser);
-router.put("/", updateUser);
+router.put("/", isAuthenticated, updateUser);
 export default router;

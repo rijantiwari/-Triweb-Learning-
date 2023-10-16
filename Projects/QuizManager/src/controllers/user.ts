@@ -11,6 +11,11 @@ interface ReturnResponse {
 const getUser = async (req: Request, res: Response) => {
   try {
     const userId = req.params.userId;
+
+    if (req.userId != req.params.userId) {
+      throw new Error("Function not allowed");
+    }
+
     const user = await User.findById(userId, { name: 1, email: 1 });
     if (!user) {
       resp = { status: "error", message: "No user Found", data: {} };
@@ -26,6 +31,9 @@ const getUser = async (req: Request, res: Response) => {
 };
 const updateUser = async (req: Request, res: Response) => {
   try {
+    if (req.userId != req.body._id) {
+      throw new Error("User not authorized");
+    }
     const userId = req.body._id;
     const user = await User.findById(userId);
 
