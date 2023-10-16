@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import User from "../models/user";
+import ProjectError from "../helper/error";
 
 let resp: ReturnResponse;
 interface ReturnResponse {
@@ -13,7 +14,10 @@ const getUser = async (req: Request, res: Response, next: NextFunction) => {
     const userId = req.params.userId;
 
     if (req.userId != req.params.userId) {
-      throw new Error("Function not allowed");
+      const err = new ProjectError("You are not authorized");
+      err.statusCode = 401;
+
+      throw err;
     }
 
     const user = await User.findById(userId, { name: 1, email: 1 });
