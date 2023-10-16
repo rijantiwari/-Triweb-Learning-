@@ -8,7 +8,11 @@ interface ReturnResponse {
   message: string;
   data: {};
 }
-const registerUser = async (req: Request, res: Response) => {
+const registerUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const email = req.body.email;
     const name = req.body.name;
@@ -29,12 +33,11 @@ const registerUser = async (req: Request, res: Response) => {
       res.send(resp);
     }
   } catch (error) {
-    resp = { status: "error", message: "Something went wrong", data: {} };
-    res.status(500).send(resp);
+    next(error);
   }
 };
 
-const loginUser = async (req: Request, res: Response) => {
+const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const email = req.body.email;
     const password = req.body.password;
@@ -63,9 +66,7 @@ const loginUser = async (req: Request, res: Response) => {
       res.send(resp);
     }
   } catch (error) {
-    console.log(error);
-    resp = { status: "error", message: "Something went wrong", data: {} };
-    res.status(500).send(resp);
+    next(error);
   }
 };
 export { registerUser, loginUser };

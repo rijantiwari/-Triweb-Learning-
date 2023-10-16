@@ -1,3 +1,4 @@
+import { Request, Response, NextFunction } from "express";
 import express from "express";
 import mongoose from "mongoose";
 
@@ -20,6 +21,12 @@ app.use("/user", userRoute);
 
 app.use("/auth", authRoute);
 
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  // email to corresponding email
+  // logger for error
+  console.log(err);
+  res.send("Something went wrong, Please try after sometimes");
+});
 mongoose
   .connect(connectionString)
   .then((success) =>

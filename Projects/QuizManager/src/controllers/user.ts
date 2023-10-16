@@ -8,7 +8,7 @@ interface ReturnResponse {
   data: {};
 }
 
-const getUser = async (req: Request, res: Response) => {
+const getUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const userId = req.params.userId;
 
@@ -25,11 +25,10 @@ const getUser = async (req: Request, res: Response) => {
       res.send(resp);
     }
   } catch (error) {
-    resp = { status: "error", message: "Something went wrong", data: {} };
-    res.status(500).send(resp);
+    next(error);
   }
 };
-const updateUser = async (req: Request, res: Response) => {
+const updateUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (req.userId != req.body._id) {
       throw new Error("User not authorized");
@@ -48,8 +47,7 @@ const updateUser = async (req: Request, res: Response) => {
     resp = { status: "success", message: "User updated", data: { user } };
     res.send(resp);
   } catch (error) {
-    resp = { status: "error", message: "Something went wrong", data: {} };
-    res.status(500).send(resp);
+    next(error);
   }
 };
 
