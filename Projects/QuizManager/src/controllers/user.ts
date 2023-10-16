@@ -6,7 +6,7 @@ let resp: ReturnResponse;
 interface ReturnResponse {
   status: "success" | "error";
   message: string;
-  data: {};
+  data: {} | [];
 }
 
 const getUser = async (req: Request, res: Response, next: NextFunction) => {

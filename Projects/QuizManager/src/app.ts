@@ -8,7 +8,7 @@ import ProjectError from "./helper/error";
 interface ReturnResponse {
   status: "success" | "error";
   message: string;
-  data: {};
+  data: {} | [];
 }
 const app = express();
 const connectionString = process.env.CONNECTION_STRING || "";
