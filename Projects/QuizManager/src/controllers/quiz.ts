@@ -24,18 +24,24 @@ const createQuiz = async (req: Request, res: Response, next: NextFunction) => {
     next(error);
   }
 };
-const getQuiz = async (req: Request, res: Response) => {
+const getQuiz = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const quizId = req.params.quizId;
     const quiz = await Quiz.findById(quizId, {
       name: 1,
       question_list: 1,
       answers: 1,
+      created_by: 1,
     });
 
     if (!quiz) {
       const err = new ProjectError("Quiz not found");
       err.statusCode = 404;
+      throw err;
+    }
+    if (req.userId !== quiz.created_by.toString()) {
+      const err = new ProjectError("You are not authorized");
+      err.statusCode = 403;
       throw err;
     }
     const resp: ReturnResponse = {
@@ -44,7 +50,9 @@ const getQuiz = async (req: Request, res: Response) => {
       data: quiz,
     };
     res.status(200).send(resp);
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 };
 const updateQuiz = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -53,6 +61,11 @@ const updateQuiz = async (req: Request, res: Response, next: NextFunction) => {
     if (!quiz) {
       const err = new ProjectError("Quiz not found");
       err.statusCode = 404;
+      throw err;
+    }
+    if (req.userId !== quiz.created_by.toString()) {
+      const err = new ProjectError("You are not authorized");
+      err.statusCode = 403;
       throw err;
     }
     quiz.name = req.body.name;
@@ -72,7 +85,18 @@ const updateQuiz = async (req: Request, res: Response, next: NextFunction) => {
 const deleteQuiz = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const quizId = req.params.quizId;
-    const quiz = await Quiz.deleteOne({ _id: quizId });
+    const quiz = await Quiz.findById(quizId);
+    if (!quiz) {
+      const err = new ProjectError("Quiz not found");
+      err.statusCode = 404;
+      throw err;
+    }
+    if (req.userId !== quiz.created_by.toString()) {
+      const err = new ProjectError("You are not authorized");
+      err.statusCode = 403;
+      throw err;
+    }
+    await Quiz.deleteOne({ _id: quizId });
     const resp: ReturnResponse = {
       status: "success",
       message: "Quiz Deleted Successfully ",
@@ -90,6 +114,11 @@ const publishQuiz = async (req: Request, res: Response, next: NextFunction) => {
     if (!quiz) {
       const err = new ProjectError("Quiz not found");
       err.statusCode = 404;
+      throw err;
+    }
+    if (req.userId !== quiz.created_by.toString()) {
+      const err = new ProjectError("You are not authorized");
+      err.statusCode = 403;
       throw err;
     }
     quiz.is_published = true;
