@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-
+import Quiz from "../models/quiz";
 const createQuiz = (req: Request, res: Response) => {
+  const quiz = new Quiz(req.body);
+
   res.send(req.body);
 };
 const getQuiz = (req: Request, res: Response) => {
