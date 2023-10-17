@@ -10,7 +10,9 @@ const quizSchema = new schema(
     },
     question_list: [
       {
-        question_number: Number,
+        question_number: {
+          type: Number,
+        },
         question: String,
         options: {},
       },
