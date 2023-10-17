@@ -1,6 +1,9 @@
 import { Request, Response, NextFunction } from "express";
+import { validationResult } from "express-validator";
+
 import Quiz from "../models/quiz";
 import ProjectError from "../helper/error";
+
 interface ReturnResponse {
   status: "success" | "error";
   message: string;
@@ -8,6 +11,15 @@ interface ReturnResponse {
 }
 const createQuiz = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    const validationError = validationResult(req);
+
+    if (!validationError.isEmpty()) {
+      const err = new ProjectError("Validation Failed");
+      err.statusCode = 422;
+      err.data = validationError.array();
+      throw err;
+    }
+
     const created_by = req.userId;
     const name = req.body.name;
     const question_list = req.body.question_list;
@@ -66,6 +78,11 @@ const updateQuiz = async (req: Request, res: Response, next: NextFunction) => {
     if (req.userId !== quiz.created_by.toString()) {
       const err = new ProjectError("You are not authorized");
       err.statusCode = 403;
+      throw err;
+    }
+    if (quiz.is_published) {
+      const err = new ProjectError("You cannot update, published Quiz");
+      err.statusCode = 405;
       throw err;
     }
     quiz.name = req.body.name;

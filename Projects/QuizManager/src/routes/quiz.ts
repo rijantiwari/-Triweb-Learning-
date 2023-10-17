@@ -8,12 +8,28 @@ import {
   publishQuiz,
 } from "../controllers/quiz";
 import { isAuthenticated } from "../middlewares/isAuth";
+import { body } from "express-validator";
+
 const router = express.Router();
 
 // create
 // POST/quiz./
 
-router.post("/", isAuthenticated, createQuiz);
+router.post(
+  "/",
+  isAuthenticated,
+  [
+    body("name")
+      .trim()
+      .notEmpty()
+      .isLength({ min: 4 })
+      .withMessage("Please Enter a valid name minimum 4 charactor long"),
+    body("question_list").custom((question_list) => {
+      console.log(question_list);
+    }),
+  ],
+  createQuiz
+);
 
 //GET /quiz/
 router.get("/:quizId", isAuthenticated, getQuiz);
