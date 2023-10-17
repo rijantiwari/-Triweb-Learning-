@@ -69,11 +69,40 @@ const updateQuiz = async (req: Request, res: Response, next: NextFunction) => {
     next(error);
   }
 };
-const deleteQuiz = (req: Request, res: Response, next: NextFunction) => {
-  res.send(req.params.quizId);
+const deleteQuiz = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const quizId = req.params.quizId;
+    const quiz = await Quiz.deleteOne({ _id: quizId });
+    const resp: ReturnResponse = {
+      status: "success",
+      message: "Quiz Deleted Successfully ",
+      data: {},
+    };
+    res.status(200).send(resp);
+  } catch (error) {
+    next(error);
+  }
 };
-const publisheQuiz = (req: Request, res: Response) => {
-  res.send(req.body);
+const publishQuiz = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const quizId = req.body.quizId;
+    const quiz = await Quiz.findById(quizId);
+    if (!quiz) {
+      const err = new ProjectError("Quiz not found");
+      err.statusCode = 404;
+      throw err;
+    }
+    quiz.is_published = true;
+    await quiz.save();
+    const resp: ReturnResponse = {
+      status: "success",
+      message: "Quiz Published Successfully ",
+      data: {},
+    };
+    res.status(200).send(resp);
+  } catch (error) {
+    next(error);
+  }
 };
 
-export { createQuiz, getQuiz, updateQuiz, deleteQuiz, publisheQuiz };
+export { createQuiz, getQuiz, updateQuiz, deleteQuiz, publishQuiz };

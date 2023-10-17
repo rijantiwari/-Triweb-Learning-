@@ -5,7 +5,7 @@ import {
   getQuiz,
   updateQuiz,
   deleteQuiz,
-  publisheQuiz,
+  publishQuiz,
 } from "../controllers/quiz";
 import { isAuthenticated } from "../middlewares/isAuth";
 const router = express.Router();
@@ -26,5 +26,5 @@ router.put("/", isAuthenticated, updateQuiz);
 router.delete("/:quizId", isAuthenticated, deleteQuiz);
 // Publish
 
-router.patch("/publish", isAuthenticated, publisheQuiz);
+router.patch("/publish", isAuthenticated, publishQuiz);
 export default router;
