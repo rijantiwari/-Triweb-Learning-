@@ -15,8 +15,9 @@ const quizSchema = new schema(
         options: {},
       },
     ],
-    answer: {},
+    answers: {},
     created_by: {
+      required: true,
       type: mongoose.Types.ObjectId,
     },
     is_published: {
